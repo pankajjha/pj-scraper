@@ -1,14 +1,10 @@
-# [The maintained successor of se-scraper is the general purpose crawling infrastructure](https://github.com/NikolaiT/Crawling-Infrastructure)
+# This is a modified version of [NikolaiT/se-scraper](https://github.com/NikolaiT/se-scraper)
 
-## Search Engine Scraper - se-scraper
+## Custom Search Engine Scraper - pj-scraper
 
-[![npm](https://img.shields.io/npm/v/se-scraper.svg?style=for-the-badge)](https://www.npmjs.com/package/se-scraper)
-[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg?style=for-the-badge)](https://www.paypal.me/incolumitas)
-[![Known Vulnerabilities](https://snyk.io/test/github/NikolaiT/se-scraper/badge.svg)](https://snyk.io/test/github/NikolaiT/se-scraper)
+[![npm](https://img.shields.io/npm/v/pj-scraper.svg?style=for-the-badge)](https://www.npmjs.com/package/pj-scraper)
 
 This node module allows you to scrape search engines concurrently with different proxies.
-
-If you don't have extensive technical experience or don't want to purchase proxies, you can use [my scraping service](https://scrapeulous.com/).
 
 #### Table of Contents
 - [Installation](#installation)
@@ -25,7 +21,7 @@ If you don't have extensive technical experience or don't want to purchase proxi
 - [Special Query String Parameters for Search Engines](#query-string-parameters)
 
 
-Se-scraper supports the following search engines:
+Pj-scraper supports the following search engines:
 * Google
 * Google News
 * Google News App version (https://news.google.com)
@@ -66,10 +62,10 @@ This command will install dependencies:
 sudo apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget;
 ```
 
-Install **se-scraper** by entering the following command in your terminal
+Install **pj-scraper** by entering the following command in your terminal
 
 ```bash
-npm install se-scraper
+npm install pj-scraper
 ```
 
 If you **don't** want puppeteer to download a complete chromium browser, add this variable to your environment. Then this module is not guaranteed to run out of the box.
@@ -78,62 +74,12 @@ If you **don't** want puppeteer to download a complete chromium browser, add thi
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
 ```
 
-### Docker Support
-
-I will maintain a public docker image of se-scraper. Pull the docker image with the command:
-
-```bash
-docker pull tschachn/se-scraper
-```
-
-Confirm that the docker image was correctly pulled:
-
-```bash
-docker image ls
-```
-
-Should show something like that:
-
-```
-tschachn/se-scraper             latest           897e1aeeba78        21 minutes ago      1.29GB
-```
-
-You can check the [latest tag here](https://hub.docker.com/r/tschachn/se-scraper/tags). In the example below, the latest tag is **latest**. This will most likely remain **latest** in the future.
-
-Run the docker image and map the internal port 3000 to the external
-port 3000:
-
-```bash
-$ docker run -p 3000:3000 tschachn/se-scraper:latest
-
-Running on http://0.0.0.0:3000
-```
-
-When the image is running, you may start scrape jobs via HTTP API:
-
-```bash
-curl -XPOST http://0.0.0.0:3000 -H 'Content-Type: application/json' \
--d '{
-    "browser_config": {
-        "random_user_agent": true
-    },
-    "scrape_config": {
-        "search_engine": "google",
-        "keywords": ["test"],
-        "num_pages": 1
-    }
-}'
-```
-
-Many thanks goes to [slotix](https://github.com/NikolaiT/se-scraper/pull/21) for his tremendous help in setting up a docker image.
-
-
 ## Minimal Example
 
 Create a file named `minimal.js` with the following contents
 
 ```js
-const se_scraper = require('se-scraper');
+const se_scraper = require('pj-scraper');
 
 (async () => {
     let scrape_job = {
@@ -155,7 +101,7 @@ Start scraping by firing up the command `node minimal.js`
 Create a file named `run.js` with the following contents
 
 ```js
-const se_scraper = require('se-scraper');
+const se_scraper = require('pj-scraper');
 
 (async () => {
     let browser_config = {
@@ -165,7 +111,7 @@ const se_scraper = require('se-scraper');
 
     let scrape_job = {
         search_engine: 'google',
-        keywords: ['news', 'se-scraper'],
+        keywords: ['news', 'pj-scraper'],
         num_pages: 1,
         // add some cool google search settings
         google_settings: {
@@ -208,7 +154,7 @@ That's how you would proceed:
 **se-scraper** will create one browser instance per proxy. So the maximal amount of concurrency is equivalent to the number of proxies plus one (your own IP).
 
 ```js
-const se_scraper = require('se-scraper');
+const se_scraper = require('pj-scraper');
 
 (async () => {
     let browser_config = {
@@ -263,7 +209,7 @@ You can define your own scraper class and use it within se-scraper.
 
 ## Scraping Model
 
-**se-scraper** scrapes search engines only. In order to introduce concurrency into this library, it is necessary to define the scraping model. Then we can decide how we divide and conquer.
+**pj-scraper** scrapes search engines only. In order to introduce concurrency into this library, it is necessary to define the scraping model. Then we can decide how we divide and conquer.
 
 #### Scraping Resources
 
@@ -272,11 +218,11 @@ What are common scraping resources?
 1. **Memory and CPU**. Necessary to launch multiple browser instances.
 2. **Network Bandwith**. Is not often the bottleneck.
 3. **IP Addresses**. Websites often block IP addresses after a certain amount of requests from the same IP address. Can be circumvented by using proxies.
-4. Spoofable identifiers such as browser fingerprint or user agents. Those will be handled by **se-scraper**
+4. Spoofable identifiers such as browser fingerprint or user agents. Those will be handled by **pj-scraper**
 
 #### Concurrency Model
 
-**se-scraper** should be able to run without any concurrency at all. This is the default case. No concurrency means only one browser/tab is searching at the time.
+**pj-scraper** should be able to run without any concurrency at all. This is the default case. No concurrency means only one browser/tab is searching at the time.
 
 For concurrent use, we will make use of a modified [puppeteer-cluster library](https://github.com/thomasdondorf/puppeteer-cluster).
 
@@ -287,7 +233,7 @@ One scrape job is properly defined by
 * `N` keywords/queries
 * `K` proxies and `K+1` browser instances (because when we have no proxies available, we will scrape with our dedicated IP)
 
-Then **se-scraper** will create `K+1` dedicated browser instances with a unique ip address. Each browser will get `N/(K+1)` keywords and will issue `N/(K+1) * M` total requests to the search engine.
+Then **pj-scraper** will create `K+1` dedicated browser instances with a unique ip address. Each browser will get `N/(K+1)` keywords and will issue `N/(K+1) * M` total requests to the search engine.
 
 The problem is that [puppeteer-cluster library](https://github.com/thomasdondorf/puppeteer-cluster) does only allow identical options for subsequent new browser instances. Therefore, it is not trivial to launch a cluster of browsers with distinct proxy settings. Right now, every browser has the same options. It's not possible to set options on a per browser basis.
 
@@ -300,8 +246,6 @@ Solution:
 ## Technical Notes
 
 Scraping is done with a headless chromium browser using the automation library puppeteer. Puppeteer is a Node library which provides a high-level API to control headless Chrome or Chromium over the DevTools Protocol.
-
-If you need to deploy scraping to the cloud (AWS or Azure), you can contact me at **hire@incolumitas.com**
 
 The chromium browser is started with the following flags to prevent
 scraping detection.
@@ -348,13 +292,13 @@ Consider the following resources:
 * https://intoli.com/blog/not-possible-to-block-chrome-headless/
 * https://news.ycombinator.com/item?id=16179602
 
-**se-scraper** implements the countermeasures against headless chrome detection proposed on those sites.
+**pj-scraper** implements the countermeasures against headless chrome detection proposed on those sites.
 
 Most recent detection counter measures can be found here:
 
 * https://github.com/paulirish/headless-cat-n-mouse/blob/master/apply-evasions.js
 
-**se-scraper** makes use of those anti detection techniques.
+**pj-scraper** makes use of those anti detection techniques.
 
 To check whether evasion works, you can test it by passing `test_evasion` flag to the config:
 
@@ -369,10 +313,10 @@ It will create a screenshot named `headless-test-result.png` in the directory wh
 
 ## Advanced Usage
 
-Use **se-scraper** by calling it with a script such as the one below.
+Use **pj-scraper** by calling it with a script such as the one below.
 
 ```js
-const se_scraper = require('se-scraper');
+const se_scraper = require('pj-scraper');
 
 // those options need to be provided on startup
 // and cannot give to se-scraper on scrape() calls
