@@ -162,6 +162,8 @@ class ScrapeManager {
             }
         });
 
+        console.log(this.config);
+
         this.logger = this.config.logger;
 
         if (config.sleep_range) {

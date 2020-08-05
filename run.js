@@ -43,7 +43,7 @@ let browser_config = {
     // scrape config can change on each scrape() call
     let scrape_config = {
         // which search engine to scrape
-        search_engine: 'duckduckgo',
+        search_engine: se_scraper.CustomScraper,
         // an array of keywords to scrape
         keywords: ['cloud service'],
         // the number of pages to scrape for each keyword
