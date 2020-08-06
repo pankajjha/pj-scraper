@@ -61,6 +61,7 @@ let browser_config = {
         keyword_file: '',
         // how long to sleep between requests. a random sleep interval within the range [a,b]
         // is drawn before every request. empty string for no sleeping.
+        scrape_from_string: '',
         sleep_range: '',
         // path to output file, data will be stored in JSON
         output_file: '',

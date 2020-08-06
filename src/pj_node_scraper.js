@@ -6,8 +6,6 @@ var fs = require('fs');
 
 class PJScrapeManager extends se_scraper.ScrapeManager{
     constructor(config, context={}) {
-        const content = fs.readFileSync('./file2.html', 'utf8');
-        config.scrape_from_string = content;
         config.logger = createLogger({
             level: 'info',
             format: combine(
