@@ -1,14 +1,26 @@
 'use strict';
+const se_scraper = require('se-scraper');
+const { createLogger, format, transports } = require('winston');
+const { combine, timestamp, printf } = format;
+var fs = require('fs');
 
-const NodeScraper = require('./node_scraper');
-
-class PJScrapeManager extends NodeScraper.ScrapeManager{
+class PJScrapeManager extends se_scraper.ScrapeManager{
     constructor(config, context={}) {
-        config.scrape_from_string = 'TEST';
+        const content = fs.readFileSync('./file2.html', 'utf8');
+        config.scrape_from_string = content;
+        config.logger = createLogger({
+            level: 'info',
+            format: combine(
+                timestamp(),
+                printf(({ level, message, timestamp }) => {
+                    return `${timestamp} [${level}] ${message}`;
+                })
+            ),
+            transports: [
+                new transports.Console()
+            ]
+        }),
         super(config, context);
-        // this.config = _.defaults(config, {
-        //     scrape_from_string: 'TEST',
-        // });
     }
 }
 module.exports = {

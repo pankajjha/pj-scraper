@@ -1,4 +1,4 @@
-const se_scraper = require('./index.js');
+const pj_scraper = require('./index.js');
 
 // those options need to be provided on startup
 // and cannot give to se-scraper on scrape() calls
@@ -8,13 +8,13 @@ let browser_config = {
     // if random_user_agent is set to True, a random user agent is chosen
     random_user_agent: false,
     // whether to start the browser in headless mode
-    headless: false,
+    headless: true,
     // whether debug information should be printed
     // level 0: print nothing
     // level 1: print most important info
     // ...
     // level 4: print all shit nobody wants to know
-    debug_level: 1,
+    debug_level: 0,
     // specify flags passed to chrome here
     chrome_flags: [],
     // path to js module that extends functionality
@@ -43,7 +43,8 @@ let browser_config = {
     // scrape config can change on each scrape() call
     let scrape_config = {
         // which search engine to scrape
-        search_engine: se_scraper.CustomScraper,
+        search_engine: pj_scraper.CustomScraper,
+        //search_engine: 'google',
         // an array of keywords to scrape
         keywords: ['cloud service'],
         // the number of pages to scrape for each keyword
@@ -69,14 +70,14 @@ let browser_config = {
         // check if headless chrome escapes common detection techniques
         // this is a quick test and should be used for debugging
         test_evasion: false,
-        apply_evasion_techniques: true,
+        apply_evasion_techniques: false,
         // log ip address data
         log_ip_address: false,
         // log http headers
         log_http_headers: false,
     };
 
-    let results = await se_scraper.scrape(browser_config, scrape_config);
-    console.dir(results, {depth: null, colors: true});
+    let results = await pj_scraper.scrape(browser_config, scrape_config);
+    //console.dir(results, {depth: null, colors: true});
 })();
 
