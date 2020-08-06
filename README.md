@@ -8,7 +8,6 @@ This node module allows you to scrape search engines concurrently with different
 
 #### Table of Contents
 - [Installation](#installation)
-- [Docker](#docker-support)
 - [Minimal Example](#minimal-example)
 - [Quickstart](#quickstart)
 - [Contribute](#contribute)
@@ -79,7 +78,7 @@ export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
 Create a file named `minimal.js` with the following contents
 
 ```js
-const se_scraper = require('pj-scraper');
+const pj_scraper = require('pj-scraper');
 
 (async () => {
     let scrape_job = {
@@ -88,7 +87,7 @@ const se_scraper = require('pj-scraper');
         num_pages: 1,
     };
 
-    var results = await se_scraper.scrape({}, scrape_job);
+    var results = await pj_scraper.scrape({}, scrape_job);
 
     console.dir(results, {depth: null, colors: true});
 })();
@@ -101,7 +100,7 @@ Start scraping by firing up the command `node minimal.js`
 Create a file named `run.js` with the following contents
 
 ```js
-const se_scraper = require('pj-scraper');
+const pj_scraper = require('pj-scraper');
 
 (async () => {
     let browser_config = {
@@ -122,7 +121,7 @@ const se_scraper = require('pj-scraper');
         },
     };
 
-    var scraper = new se_scraper.ScrapeManager(browser_config);
+    var scraper = new pj_scraper.ScrapeManager(browser_config);
 
     await scraper.start();
 
@@ -151,10 +150,10 @@ That's how you would proceed:
 
 ## Proxies
 
-**se-scraper** will create one browser instance per proxy. So the maximal amount of concurrency is equivalent to the number of proxies plus one (your own IP).
+**pj-scraper** will create one browser instance per proxy. So the maximal amount of concurrency is equivalent to the number of proxies plus one (your own IP).
 
 ```js
-const se_scraper = require('pj-scraper');
+const pj_scraper = require('pj-scraper');
 
 (async () => {
     let browser_config = {
@@ -170,7 +169,7 @@ const se_scraper = require('pj-scraper');
         num_pages: 1,
     };
 
-    var scraper = new se_scraper.ScrapeManager(browser_config);
+    var scraper = new pj_scraper.ScrapeManager(browser_config);
     await scraper.start();
 
     var results = await scraper.scrape(scrape_job);
@@ -316,7 +315,7 @@ It will create a screenshot named `headless-test-result.png` in the directory wh
 Use **pj-scraper** by calling it with a script such as the one below.
 
 ```js
-const se_scraper = require('pj-scraper');
+const pj_scraper = require('pj-scraper');
 
 // those options need to be provided on startup
 // and cannot give to se-scraper on scrape() calls
@@ -427,7 +426,7 @@ let browser_config = {
         log_http_headers: false,
     };
 
-    let results = await se_scraper.scrape(browser_config, scrape_config);
+    let results = await pj_scraper.scrape(browser_config, scrape_config);
     console.dir(results, {depth: null, colors: true});
 })();
 ```
