@@ -20,7 +20,6 @@ module.exports = class Scraper extends se_scraper.Scraper {
             this.result_rank = 1;
             debug('Trying...', keyword)
             try {
-
                 this.page_num = 1;
                 do {
                     this.logger.info(`${this.config.search_engine_name} scrapes keyword "${keyword}" on page ${this.page_num}`);

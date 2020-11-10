@@ -79,6 +79,6 @@ let browser_config = {
     };
 
     let results = await pj_scraper.scrape(browser_config, scrape_config);
-    //console.dir(results, {depth: null, colors: true});
+    console.dir(results, {depth: null, colors: true});
 })();
 
