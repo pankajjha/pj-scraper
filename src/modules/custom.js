@@ -13,9 +13,7 @@ class CustomGoogleScraper extends Scraper {
     }
 
     async parse_async(html) {
-
         const results = await this.page.evaluate(() => {
-
             let _text = (el, s) => {
                 let n = el.querySelector(s);
 
@@ -50,21 +48,19 @@ class CustomGoogleScraper extends Scraper {
             };
 
             let num_results_el = document.getElementById('resultStats');
-
             if (num_results_el) {
                 results.num_results = num_results_el.innerText;
             }
 
             let organic_results = document.querySelectorAll('#center_col .g');
-
             organic_results.forEach((el) => {
 
                 let serp_obj = {
-                    link: _attr(el, '.r a', 'href'),
-                    title: _text(el, '.r a h3'),
-                    snippet: _text(el, 'span.st'),
-                    visible_link: _text(el, '.r cite'),
-                    date: _text(el, 'span.f'),
+                    link: _attr(el, '.rc a', 'href'),
+                    title: _text(el, '.rc a h3'),
+                    snippet: _text(el, '.rc > div:nth-child(2) span span'),
+                    visible_link: _text(el, '.rc cite'),
+                    date: _text(el, '.rc > div:nth-child(2) span.f'),
                 };
 
                 if (serp_obj.date) {
@@ -80,16 +76,16 @@ class CustomGoogleScraper extends Scraper {
             let parseAds = (container, selector) => {
                 document.querySelectorAll(selector).forEach((el) => {
                     let ad_obj = {
-                        visible_link: _text(el, '.ads-visurl cite'),
-                        tracking_link: _attr(el, 'a:first-child', 'href'),
-                        link: _attr(el, 'a:nth-child(2)', 'href'),
-                        title: _text(el, 'a h3'),
-                        snippet: _text(el, '.ads-creative'),
+                        visible_link: _text(el, '.Zu0yb.LWAWHf.qzEoUe'),
+                        tracking_link: _attr(el, 'a:first-child', 'data-rw'),
+                        link: _attr(el, 'a:first-child', 'href'),
+                        title: _text(el, 'a:first-child div'),
+                        snippet: _text(el, '.MUxGbd.yDYNvb.lyLwlc'),
                         links: [],
                     };
-                    el.querySelectorAll('ul li a').forEach((node) => {
+                    el.querySelectorAll('.bzwd5b .fCBnFe a').forEach((node) => {
                         ad_obj.links.push({
-                            tracking_link: node.getAttribute('data-arwt'),
+                            tracking_link: node.getAttribute('href'),
                             link: node.getAttribute('href'),
                             title: node.innerText,
                         })
@@ -98,8 +94,8 @@ class CustomGoogleScraper extends Scraper {
                 });
             };
 
-            parseAds(results.top_ads, '#tads .ads-ad');
-            parseAds(results.bottom_ads, '#tadsb .ads-ad');
+            parseAds(results.top_ads, '#tads .uEierd');
+            parseAds(results.bottom_ads, '#tadsb .uEierd');
 
             // parse google places
             document.querySelectorAll('.rllt__link').forEach((el) => {

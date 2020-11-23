@@ -23,9 +23,13 @@ module.exports = class Scraper extends se_scraper.Scraper {
                 this.page_num = 1;
                 do {
                     this.logger.info(`${this.config.search_engine_name} scrapes keyword "${keyword}" on page ${this.page_num}`);
-                    this.page.setContent(this.config.scrape_from_string)
+                    if (this.config.scrape_from_file.length <= 0) {
+                        await this.page.setContent(this.config.scrape_from_string)
+                    } else {
+                        this.last_response = await this.page.goto(this.config.scrape_from_file);
+                    }
                     let html = await this.page.content();
-                    let parsed = this.parse(html);
+                    let parsed = await this.parse(html);
                     this.results[keyword][this.page_num] = parsed ? parsed : await this.parse_async(html);
 
                     if (this.config.screen_output) {
