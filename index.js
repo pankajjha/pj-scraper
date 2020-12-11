@@ -1,6 +1,7 @@
 const pj_scraper = require('./src/pj_node_scraper.js');
 var Scraper = require('./src/modules/pj-scraper');
 const custom_scraper = require('./src/modules/custom.js');
+const custom_bing_scraper = require('./src/modules/custom-bing.js');
 const debug = require('debug')('pj-scraper:Index');
 
 async function scrape(browser_config, scrape_config) {
@@ -22,9 +23,27 @@ async function scrape(browser_config, scrape_config) {
     return results;
 }
 
+function getScraperEngine(browser_name)
+{
+    var searchEngine = custom_scraper.CustomGoogleScraper;
+    switch(browser_name) {
+        case 'bing':
+            searchEngine = custom_bing_scraper.CustomBingScraper;
+            break;
+        case 'google':
+            searchEngine = custom_scraper.CustomGoogleScraper;
+            break;
+        default:
+            searchEngine = custom_scraper.CustomGoogleScraper;
+    }
+    return searchEngine;
+}
+
 module.exports = {
     scrape: scrape,
+    getScraperEngine: getScraperEngine,
     ScrapeManager: pj_scraper.PJScrapeManager,
     Scraper: Scraper,
-    CustomScraper: custom_scraper.CustomGoogleScraper
+    CustomScraper: custom_scraper.CustomGoogleScraper,
+    CustomBingScraper: custom_bing_scraper.CustomBingScraper
 };

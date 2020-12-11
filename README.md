@@ -4,13 +4,12 @@
 
 [![npm](https://img.shields.io/npm/v/pj-scraper.svg?style=for-the-badge)](https://www.npmjs.com/package/pj-scraper)
 
-This node module allows you to scrape search engines concurrently with different proxies.
+This node module allows you to scrape search engines like google and bing through locally downloaded html page.
+you just have to pass the html content as a string and it will return the SERP result in JSON
 
 #### Table of Contents
 - [Installation](#installation)
 - [Minimal Example](#minimal-example)
-- [Quickstart](#quickstart)
-- [Contribute](#contribute)
 - [Using Proxies](#proxies)
 - [Custom Scrapers](#custom-scrapers)
 - [Examples](#examples)
@@ -32,7 +31,7 @@ Pj-scraper supports the following search engines:
 * Yandex
 * Webcrawler
 
-This module uses puppeteer and a modified version of [puppeteer-cluster](https://github.com/thomasdondorf/puppeteer-cluster/). It was created by the Developer of [GoogleScraper](https://github.com/NikolaiT/GoogleScraper), a module with 1800 Stars on Github.
+This module uses [NikolaiT/se-scraper](https://github.com/NikolaiT/se-scraper) and adds capablity to scrape using string
 
 ## Installation
 
@@ -51,8 +50,6 @@ curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh;
 sudo bash nodesource_setup.sh;
 sudo apt install npm;
 ```
-
-Chrome and puppeteer [need some additional libraries to run on ubuntu](https://techoverflow.net/2018/06/05/how-to-fix-puppetteer-error-).
 
 This command will install dependencies:
 
@@ -78,13 +75,15 @@ export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
 Create a file named `minimal.js` with the following contents
 
 ```js
+const fs = require('fs');
 const pj_scraper = require('pj-scraper');
 
 (async () => {
     let scrape_job = {
-        search_engine: 'google',
-        keywords: ['lets go boys'],
+        search_engine: pj_scraper.CustomScraper,
+        keywords: ['car loan'],
         num_pages: 1,
+        scrape_from_string: fs.readFileSync('carloan.html', 'utf8'), //You can also put your "html code" here
     };
 
     var results = await pj_scraper.scrape({}, scrape_job);
@@ -94,153 +93,6 @@ const pj_scraper = require('pj-scraper');
 ```
 
 Start scraping by firing up the command `node minimal.js`
-
-## Quickstart
-
-Create a file named `run.js` with the following contents
-
-```js
-const pj_scraper = require('pj-scraper');
-
-(async () => {
-    let browser_config = {
-        debug_level: 1,
-        output_file: 'examples/results/data.json',
-    };
-
-    let scrape_job = {
-        search_engine: 'google',
-        keywords: ['news', 'pj-scraper'],
-        num_pages: 1,
-        // add some cool google search settings
-        google_settings: {
-            gl: 'us', // The gl parameter determines the Google country to use for the query.
-            hl: 'en', // The hl parameter determines the Google UI language to return results.
-            start: 0, // Determines the results offset to use, defaults to 0.
-            num: 100, // Determines the number of results to show, defaults to 10. Maximum is 100.
-        },
-    };
-
-    var scraper = new pj_scraper.ScrapeManager(browser_config);
-
-    await scraper.start();
-
-    var results = await scraper.scrape(scrape_job);
-
-    console.dir(results, {depth: null, colors: true});
-
-    await scraper.quit();
-})();
-```
-
-Start scraping by firing up the command `node run.js`
-
-## Contribute
-
-I really help and love your help! However scraping is a dirty business and it often takes me a lot of time to find failing selectors or missing JS logic. So if any search engine does not yield the results of your liking, please create a **static test case** similar to [this static test of google](test/static_tests/google.js) that fails. I will try to correct se-scraper then.
-
-That's how you would proceed:
-
-1. Copy the [static google test case](test/static_tests/google.js)
-2. Remove all unnecessary testing code
-3. Save a search to file where se-scraper does not work correctly.
-3. Implement the static test case using the saved search html where se-scraper currently fails.
-4. Submit a new issue with the failing test case as pull request
-5. I will fix it! (or better: you submit a pull request directly)
-
-## Proxies
-
-**pj-scraper** will create one browser instance per proxy. So the maximal amount of concurrency is equivalent to the number of proxies plus one (your own IP).
-
-```js
-const pj_scraper = require('pj-scraper');
-
-(async () => {
-    let browser_config = {
-        debug_level: 1,
-        output_file: 'examples/results/proxyresults.json',
-        proxy_file: '/home/nikolai/.proxies', // one proxy per line
-        log_ip_address: true,
-    };
-
-    let scrape_job = {
-        search_engine: 'google',
-        keywords: ['news', 'scrapeulous.com', 'incolumitas.com', 'i work too much', 'what to do?', 'javascript is hard'],
-        num_pages: 1,
-    };
-
-    var scraper = new pj_scraper.ScrapeManager(browser_config);
-    await scraper.start();
-
-    var results = await scraper.scrape(scrape_job);
-    console.dir(results, {depth: null, colors: true});
-    await scraper.quit();
-})();
-```
-
-With a proxy file such as
-
-```text
-socks5://53.34.23.55:55523
-socks4://51.11.23.22:22222
-```
-
-This will scrape with **three** browser instance each having their own IP address. Unfortunately, it is currently not possible to scrape with different proxies per tab. Chromium does not support that.
-
-
-## Custom Scrapers
-
-You can define your own scraper class and use it within se-scraper.
-
-[Check this example out](examples/custom_scraper.js) that defines a custom scraper for Ecosia.
-
-
-## Examples
-
-* [Reuse existing browser](examples/multiple_search_engines.js) yields [these results](examples/results/multiple_search_engines.json)
-* [Simple example scraping google](examples/quickstart.js) yields [these results](examples/results/data.json)
-* [Scrape with one proxy per browser](examples/proxies.js) yields [these results](examples/results/proxyresults.json)
-* [Scrape 100 keywords on Bing with multible tabs in one browser](examples/multiple_tabs.js) produces [this](examples/results/bing.json)
-* [Inject your own scraping logic](examples/pluggable.js)
-* [For the Lulz: Scraping google dorks for SQL injection vulnerabilites and confirming them.](examples/for_the_lulz.js)
-* [Scrape google maps/locations](examples/google_maps.js) yields [these results](examples/results/maps.json)
-
-
-## Scraping Model
-
-**pj-scraper** scrapes search engines only. In order to introduce concurrency into this library, it is necessary to define the scraping model. Then we can decide how we divide and conquer.
-
-#### Scraping Resources
-
-What are common scraping resources?
-
-1. **Memory and CPU**. Necessary to launch multiple browser instances.
-2. **Network Bandwith**. Is not often the bottleneck.
-3. **IP Addresses**. Websites often block IP addresses after a certain amount of requests from the same IP address. Can be circumvented by using proxies.
-4. Spoofable identifiers such as browser fingerprint or user agents. Those will be handled by **pj-scraper**
-
-#### Concurrency Model
-
-**pj-scraper** should be able to run without any concurrency at all. This is the default case. No concurrency means only one browser/tab is searching at the time.
-
-For concurrent use, we will make use of a modified [puppeteer-cluster library](https://github.com/thomasdondorf/puppeteer-cluster).
-
-One scrape job is properly defined by
-
-* 1 search engine such as `google`
-* `M` pages
-* `N` keywords/queries
-* `K` proxies and `K+1` browser instances (because when we have no proxies available, we will scrape with our dedicated IP)
-
-Then **pj-scraper** will create `K+1` dedicated browser instances with a unique ip address. Each browser will get `N/(K+1)` keywords and will issue `N/(K+1) * M` total requests to the search engine.
-
-The problem is that [puppeteer-cluster library](https://github.com/thomasdondorf/puppeteer-cluster) does only allow identical options for subsequent new browser instances. Therefore, it is not trivial to launch a cluster of browsers with distinct proxy settings. Right now, every browser has the same options. It's not possible to set options on a per browser basis.
-
-Solution:
-
-1. Create a [upstream proxy router](https://github.com/GoogleChrome/puppeteer/issues/678).
-2. Modify [puppeteer-cluster library](https://github.com/thomasdondorf/puppeteer-cluster) to accept a list of proxy strings and then pop() from this list at every new call to `workerInstance()` in https://github.com/thomasdondorf/puppeteer-cluster/blob/master/src/Cluster.ts I wrote an [issue here](https://github.com/thomasdondorf/puppeteer-cluster/issues/107). **I ended up doing this**.
-
 
 ## Technical Notes
 
@@ -281,34 +133,6 @@ page.on('request', (req) => {
     }
 });
 ```
-
-#### Making puppeteer and headless chrome undetectable
-
-Consider the following resources:
-
-* https://antoinevastel.com/bot%20detection/2019/07/19/detecting-chrome-headless-v3.html
-* https://intoli.com/blog/making-chrome-headless-undetectable/
-* https://intoli.com/blog/not-possible-to-block-chrome-headless/
-* https://news.ycombinator.com/item?id=16179602
-
-**pj-scraper** implements the countermeasures against headless chrome detection proposed on those sites.
-
-Most recent detection counter measures can be found here:
-
-* https://github.com/paulirish/headless-cat-n-mouse/blob/master/apply-evasions.js
-
-**pj-scraper** makes use of those anti detection techniques.
-
-To check whether evasion works, you can test it by passing `test_evasion` flag to the config:
-
-```js
-let config = {
-    // check if headless chrome escapes common detection techniques
-    test_evasion: true
-};
-```
-
-It will create a screenshot named `headless-test-result.png` in the directory where the scraper was started that shows whether all test have passed.
 
 ## Advanced Usage
 
@@ -395,7 +219,8 @@ let browser_config = {
         // which search engine to scrape
         search_engine: 'google',
         // an array of keywords to scrape
-        keywords: ['cat', 'mouse'],
+        keywords: ['car loan'],
+        scrape_from_string: fs.readFileSync('carloan.html', 'utf8'), //You can also put your "html code" here
         // the number of pages to scrape for each keyword
         num_pages: 2,
 
@@ -432,23 +257,3 @@ let browser_config = {
 ```
 
 [Output for the above script on my machine.](examples/results/advanced.json)
-
-### Query String Parameters
-
-You can add your custom query string parameters to the configuration object by specifying a `google_settings` key. In general: `{{search engine}}_settings`.
-
-For example you can customize your google search with the following config:
-
-```js
-let scrape_config = {
-    search_engine: 'google',
-    // use specific search engine parameters for various search engines
-    google_settings: {
-        google_domain: 'google.com',
-        gl: 'us', // The gl parameter determines the Google country to use for the query.
-        hl: 'us', // The hl parameter determines the Google UI language to return results.
-        start: 0, // Determines the results offset to use, defaults to 0.
-        num: 100, // Determines the number of results to show, defaults to 10. Maximum is 100.
-    },
-}
-```
