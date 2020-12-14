@@ -23,6 +23,8 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "debug": "^4.1.1",
+    "node-server-screenshot": "^0.2.4",
+    "pj-scraper": "file:../pj-scraper/node_modules/pj-scraper",
     "se-scraper": "^1.5.7",
     "winston": "^3.3.3"
   },
