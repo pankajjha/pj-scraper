@@ -2,7 +2,7 @@
 
 const se_scraper = require('se-scraper');
 const debug = require('debug')('pj-scraper:Scraper');
-var screenshot = require("node-server-screenshot");
+//var screenshot = require("node-server-screenshot");
 
 module.exports = class Scraper extends se_scraper.Scraper {
     constructor(options = {}) {
@@ -30,13 +30,15 @@ module.exports = class Scraper extends se_scraper.Scraper {
                     }
                     let html = await this.page.content();
                     let parsed = await this.parse(html);
-                    screenshot.fromHTML(html, "screenshot.png", function(){});
+                    //screenshot.fromHTML(html, "screenshot.png", function(){});
                     this.results[keyword][this.page_num] = parsed ? parsed : await this.parse_async(html);
 
                     if (this.config.screen_output) {
                         this.results[keyword][this.page_num].screenshot = await this.page.screenshot({
-                            encoding: 'base64',
-                            fullPage: false,
+							path: "./screenshot.png",
+							type: "png",
+                            //encoding: 'base64',
+                            fullPage: true,
                         });
                     }
 
