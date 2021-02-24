@@ -11,6 +11,24 @@ module.exports = class Scraper extends se_scraper.Scraper {
         this.logger = this.config.logger;
     }
 
+    async run({page, data}) {
+
+        if (page) {
+            this.page = page;
+        }
+
+        await this.page.setViewport({ width: 1920, height: 1040 });
+        let do_continue = true;
+
+        await this.scraping_loop();
+
+        return {
+            results: this.results,
+            metadata: this.metadata,
+            num_requests: this.num_requests,
+        }
+    }
+
     async scraping_loop() {
         debug('Inside Scraping Loop')
         for (var keyword of this.keywords) {
