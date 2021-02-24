@@ -2,13 +2,13 @@
 
 const cheerio = require('cheerio');
 const Scraper = require('./pj-scraper');
-const debug = require('debug')('pj-scraper:CustomGoogleScraper');
+const debug = require('debug')('pj-scraper:CustomGoogleMobileScraper');
 
 
-class CustomGoogleScraper extends Scraper {
+class CustomGoogleMobileScraper extends Scraper {
 
     constructor(...args) {
-        debug('Custom Google Scrapper Running');
+        debug('Custom Google Mobile Scrapper Running');
         super(...args);
     }
 
@@ -40,6 +40,7 @@ class CustomGoogleScraper extends Scraper {
                 effective_query: '',
                 right_info: {},
                 results: [],
+                organic_results: [],
                 top_products: [],
                 right_products: [],
                 top_ads: [],
@@ -51,39 +52,40 @@ class CustomGoogleScraper extends Scraper {
             if (num_results_el) {
                 results.num_results = num_results_el.innerText;
             }
-
-            let organic_results = document.querySelectorAll('#center_col .g');
-            organic_results.forEach((el) => {
-
-                let serp_obj = {
-                    link: _attr(el, '.rc a', 'href'),
-                    title: _text(el, '.rc a h3'),
-                    snippet: _text(el, '.rc > div:nth-child(2) span span'),
-                    visible_link: _text(el, '.rc cite'),
-                    date: _text(el, '.rc > div:nth-child(2) span.f'),
-                };
-
-                if (serp_obj.date) {
-                    serp_obj.date = serp_obj.date.replace(' - ', '');
-                }
-
-                results.results.push(serp_obj);
-            });
+            
+            let organic_results = (container, selector) => {
+                document.querySelectorAll(selector).forEach((el) => {
+                    let serp_obj = {
+                        link: _attr(el, 'a:first-child', 'href'),
+                        title: _text(el, 'div[role=heading]'),
+                        snippet: _text(el, '.MUxGbd.yDYNvb'),
+                        visible_link: _text(el, '.rc cite'),
+                        date: _text(el, '.rc > div:nth-child(2) span.f'),
+                    };
+    
+                    if (serp_obj.date) {
+                        serp_obj.date = serp_obj.date.replace(' - ', '');
+                    }
+                    container.push(serp_obj);
+                });
+            }
+            organic_results(results.results, '#center_col #rso .mnr-c.xpd.O9g5cc.uUPGi');
+            
 
             // check if no results
-            results.no_results = (results.results.length === 0);
+            results.no_results = (results.organic_results.length === 0);
 
             let parseAds = (container, selector) => {
                 document.querySelectorAll(selector).forEach((el) => {
                     let ad_obj = {
-                        visible_link: _text(el, '.Zu0yb.LWAWHf.qzEoUe'),
+                        visible_link: _text(el, '.Zu0yb.UGIkD.qzEoUe'),
                         tracking_link: _attr(el, 'a:first-child', 'data-rw'),
                         link: _attr(el, 'a:first-child', 'href'),
-                        title: _text(el, 'a:first-child div'),
-                        snippet: _text(el, '.MUxGbd.yDYNvb.lyLwlc'),
+                        title: _text(el, 'div[role=heading]'),
+                        snippet: _text(el, '.MUxGbd.yDYNvb.lEBKkf'),
                         links: [],
                     };
-                    el.querySelectorAll('.bzwd5b .fCBnFe a').forEach((node) => {
+                    el.querySelectorAll('.MUxGbd.v0nnCb.lyLwlc a').forEach((node) => {
                         ad_obj.links.push({
                             tracking_link: node.getAttribute('href'),
                             link: node.getAttribute('href'),
@@ -250,7 +252,7 @@ class CustomGoogleScraper extends Scraper {
     }
 
     async search_keyword(keyword) {
-        debug('Started Searching in CustomGoogleSearch')
+        debug('Started Searching in CustomGoogleMobileSearch')
         const input = await this.page.$('input[name="q"]');
         await this.set_input_value(`input[name="q"]`, keyword);
         await this.sleep(10);
@@ -278,159 +280,6 @@ class CustomGoogleScraper extends Scraper {
         let html = await this.page.content();
         return html.indexOf('detected unusual traffic') !== -1 || title.indexOf('/sorry/') !== -1;
     }
-
-    // async scraping_loop() {
-    //     debug('Executed Custom Scraping Loop')
-    //     for (var keyword of this.keywords) {
-    //         this.num_keywords++;
-    //         this.keyword = keyword;
-    //         this.results[keyword] = {};
-    //         this.result_rank = 1;
-
-    //         try {
-
-    //             if (this.pluggable && this.pluggable.before_keyword_scraped) {
-    //                 await this.pluggable.before_keyword_scraped({
-    //                     results: this.results,
-    //                     num_keywords: this.num_keywords,
-    //                     num_requests: this.num_requests,
-    //                     keyword: keyword,
-    //                 });
-    //             }
-
-    //             this.page_num = 1;
-
-    //             // load scraped page from file if `scrape_from_file` is given
-    //             if (this.config.scrape_from_file.length <= 0) {
-    //                 await this.search_keyword(keyword);
-    //             } else {
-    //                 this.last_response = await this.page.goto(this.config.scrape_from_file);
-    //             }
-
-    //             // when searching the keyword fails, num_requests will not
-    //             // be incremented.
-    //             this.num_requests++;
-
-    //             do {
-
-    //                 this.logger.info(`${this.config.search_engine_name} scrapes keyword "${keyword}" on page ${this.page_num}`);
-
-    //                 await this.wait_for_results();
-
-    //                 if (this.config.sleep_range) {
-    //                     await this.random_sleep();
-    //                 }
-
-    //                 let html = await this.page.content();
-    //                 let parsed = this.parse(html);
-    //                 this.results[keyword][this.page_num] = parsed ? parsed : await this.parse_async(html);
-
-    //                 if (this.config.screen_output) {
-    //                     this.results[keyword][this.page_num].screenshot = await this.page.screenshot({
-    //                         encoding: 'base64',
-    //                         fullPage: false,
-    //                     });
-    //                 }
-
-    //                 if (this.config.html_output) {
-
-    //                     if (this.config.clean_html_output) {
-    //                         await this.page.evaluate(() => {
-    //                             // remove script and style tags
-    //                             Array.prototype.slice.call(document.getElementsByTagName('script')).forEach(
-    //                               function(item) {
-    //                                 item.remove();
-    //                             });
-    //                             Array.prototype.slice.call(document.getElementsByTagName('style')).forEach(
-    //                               function(item) {
-    //                                 item.remove();
-    //                             });
-
-    //                             // remove all comment nodes
-    //                             var nodeIterator = document.createNodeIterator(
-    //                                 document.body,
-    //                                 NodeFilter.SHOW_COMMENT,    
-    //                                 { acceptNode: function(node) { return NodeFilter.FILTER_ACCEPT; } }
-    //                             );
-    //                             while(nodeIterator.nextNode()){
-    //                                 var commentNode = nodeIterator.referenceNode;
-    //                                 commentNode.remove();
-    //                             }
-    //                         });
-    //                     }
-
-    //                     if (this.config.clean_data_images) {
-    //                         await this.page.evaluate(() => {
-    //                             Array.prototype.slice.call(document.getElementsByTagName('img')).forEach(
-    //                               function(item) {
-    //                                 let src = item.getAttribute('src');
-    //                                 if (src && src.startsWith('data:')) {
-    //                                     item.setAttribute('src', '');
-    //                                 }
-    //                             });
-    //                         });
-    //                     }
-
-    //                     let html_contents = await this.page.content();
-    //                     // https://stackoverflow.com/questions/27841112/how-to-remove-white-space-between-html-tags-using-javascript
-    //                     // TODO: not sure if this is save!
-    //                     html_contents = html_contents.replace(/>\s+</g,'><');
-    //                     this.results[keyword][this.page_num].html = html_contents;
-    //                 }
-
-    //                 this.page_num += 1;
-
-    //                 // only load the next page when we will pass the next iteration
-    //                 // step from the while loop
-    //                 if (this.page_num <= this.config.num_pages) {
-
-    //                     let next_page_loaded = await this.next_page();
-
-    //                     if (next_page_loaded === false) {
-    //                         break;
-    //                     } else {
-    //                         this.num_requests++;
-    //                     }
-    //                 }
-
-    //             } while (this.page_num <= this.config.num_pages);
-
-    //         } catch (e) {
-
-    //             this.logger.warn(`Problem with scraping ${keyword} in search engine ${this.config.search_engine_name}: ${e.message}`);
-    //             debug('this.last_response=%O', this.last_response);
-
-    //             if (this.config.take_screenshot_on_error) {
-    //                 await this.page.screenshot({ path: `debug_se_scraper_${this.config.search_engine_name}_${keyword}.png` });
-    //             }
-
-    //             this.metadata.scraping_detected = await this.detected();
-
-    //             if (this.metadata.scraping_detected === true) {
-    //                 this.logger.warn(`${this.config.search_engine_name} detected the scraping!`);
-
-    //                 if (this.config.is_local === true) {
-    //                     await this.sleep(this.SOLVE_CAPTCHA_TIME);
-    //                     this.logger.info(`You have ${this.SOLVE_CAPTCHA_TIME}ms to enter the captcha.`);
-    //                     // expect that user filled out necessary captcha
-    //                 } else {
-    //                     if (this.config.throw_on_detection === true) {
-    //                         throw( e );
-    //                     } else {
-    //                         return;
-    //                     }
-    //                 }
-    //             } else {
-    //                 // some other error, quit scraping process if stuff is broken
-    //                 if (this.config.throw_on_detection === true) {
-    //                     throw( e );
-    //                 } else {
-    //                     return;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
     
 }
 
@@ -461,7 +310,7 @@ function clean_google_url(url) {
 
 
 module.exports = {
-    CustomGoogleScraper: CustomGoogleScraper
+    CustomGoogleMobileScraper: CustomGoogleMobileScraper
 };
 
 
