@@ -3,6 +3,7 @@ var Scraper = require('./src/modules/pj-scraper');
 const custom_scraper = require('./src/modules/custom.js');
 const custom_bing_scraper = require('./src/modules/custom-bing.js');
 const custom_google_mobile_scraper = require('./src/modules/custom-google-mobile.js');
+const custom_yahoo_scraper = require('./src/modules/custom-yahoo.js');
 const debug = require('debug')('pj-scraper:Index');
 
 async function scrape(browser_config, scrape_config) {
@@ -37,6 +38,9 @@ function getScraperEngine(browser_name)
         case 'google-mobile':
             searchEngine = custom_google_mobile_scraper.CustomGoogleMobileScraper;
             break;
+        case 'yahoo':
+            searchEngine = custom_yahoo_scraper.CustomYahooScraper;
+            break;
         default:
             searchEngine = custom_scraper.CustomGoogleScraper;
     }
@@ -50,5 +54,6 @@ module.exports = {
     Scraper: Scraper,
     CustomScraper: custom_scraper.CustomGoogleScraper,
     CustomMobileScraper: custom_google_mobile_scraper.CustomGoogleMobileScraper,
-    CustomBingScraper: custom_bing_scraper.CustomBingScraper
+    CustomBingScraper: custom_bing_scraper.CustomBingScraper,
+    CustomYahooScraper: custom_yahoo_scraper.CustomYahooScraper
 };
