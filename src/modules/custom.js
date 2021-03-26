@@ -26,7 +26,6 @@ class CustomGoogleScraper extends Scraper {
 
             let _attr = (el, s, attr) => {
                 let n = el.querySelector(s);
-
                 if (n) {
                     return n.getAttribute(attr);
                 } else {
@@ -49,7 +48,7 @@ class CustomGoogleScraper extends Scraper {
                 let snippets = element.querySelectorAll(selector).forEach((el) => {
                   text += ' '+el.textContent;
                 });
-              return text.trim();
+                return text.trim();
             }
 
             let results = {
@@ -84,7 +83,6 @@ class CustomGoogleScraper extends Scraper {
                 if (serp_obj.date) {
                     serp_obj.date = serp_obj.date.replace(' - ', '');
                 }
-
                 results.results.push(serp_obj);
             });
 
