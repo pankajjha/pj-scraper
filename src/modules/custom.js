@@ -234,6 +234,7 @@ class CustomGoogleScraper extends Scraper {
         results.top_products = this.clean_results(results.top_products, ['title', 'link']);
         results.right_products = this.clean_results(results.right_products, ['title', 'link']);
         results.results = this.clean_results(results.results, ['title', 'link' , 'snippet']);
+        console.log(results.top_ads);
 
         results.time = (new Date()).toUTCString();
         return results;
