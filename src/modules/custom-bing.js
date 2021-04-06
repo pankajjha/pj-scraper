@@ -35,8 +35,8 @@ class CustomBingScraper extends Scraper {
                 no_results: false,
                 effective_query: '',
                 results: [],
-                ads: [],
-                right_side_ads: [],
+                top_ads: [],
+                bottom_ads: [],
             };
 
             let num_results_el = document.querySelector('#b_content .sb_count');
@@ -72,9 +72,10 @@ class CustomBingScraper extends Scraper {
                     snippet: _text(el, '.b_caption p'),
                     visible_link: _text(el, '.b_adurl cite'),
                     tracking_link: _attr(el, 'h2 a', 'href'),
+                    link: _attr(el, 'h2 a', 'href'),
                 };
 
-                results.ads.push(ad_obj);
+                results.top_ads.push(ad_obj);
             });
 
             // right side ads
@@ -87,9 +88,10 @@ class CustomBingScraper extends Scraper {
                     snippet: _text(el, '.b_caption p'),
                     visible_link: _text(el, '.b_adurl cite'),
                     tracking_link: _attr(el, 'h2 a', 'href'),
+                    link: _attr(el, 'h2 a', 'href'),
                 };
 
-                results.right_side_ads.push(ad_obj);
+                results.bottom_ads.push(ad_obj);
             });
 
 
@@ -103,7 +105,7 @@ class CustomBingScraper extends Scraper {
         });
 
         results.results = this.clean_results(results.results, ['title', 'link']);
-        results.ads = this.clean_results(results.ads, ['title', 'visible_link', 'tracking_link']);
+        results.top_ads = this.clean_results(results.top_ads, ['title', 'visible_link', 'tracking_link']);
         results.time = (new Date()).toUTCString();
         return results;
     }

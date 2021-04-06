@@ -35,8 +35,8 @@ class CustomBingMobileScraper extends Scraper {
                 no_results: false,
                 effective_query: '',
                 results: [],
-                ads: [],
-                right_side_ads: [],
+                top_ads: [],
+                bottom_ads: [],
               };
               
               let parseAds = (container, selector) => {
@@ -46,13 +46,14 @@ class CustomBingMobileScraper extends Scraper {
                     snippet: _text(el, '.b_caption p'),
                     visible_link: _text(el, '.b_adurl cite'),
                     tracking_link: _attr(el, 'h2 a', 'href'),
+                    link: _attr(el, 'h2 a', 'href'),
                   };
                   container.push(ad_obj);
                 });
               };
               
-              parseAds(results.ads, '#b_results .b_ad ul li');
-              parseAds(results.right_side_ads, '#b_context .b_ad .sb_add');
+              parseAds(results.top_ads, '#b_results .b_ad ul li');
+              parseAds(results.bottom_ads, '#b_context .b_ad .sb_add');
 
 
             let effective_query_el = document.querySelector('#sp_requery a');
@@ -65,7 +66,7 @@ class CustomBingMobileScraper extends Scraper {
         });
 
         results.results = this.clean_results(results.results, ['title', 'link']);
-        results.ads = this.clean_results(results.ads, ['title', 'visible_link', 'tracking_link']);
+        results.top_ads = this.clean_results(results.top_ads, ['title', 'visible_link', 'tracking_link']);
         results.time = (new Date()).toUTCString();
         return results;
     }
