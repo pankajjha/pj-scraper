@@ -1,6 +1,6 @@
 {
   "name": "pj-scraper",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A module using puppeteer to scrape several search engines such as Google, Bing and Duckduckgo",
   "homepage": "https://pankajjha.me/",
   "main": "index.js",
