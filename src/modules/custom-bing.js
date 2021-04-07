@@ -73,6 +73,7 @@ class CustomBingScraper extends Scraper {
                     visible_link: _text(el, '.b_adurl cite'),
                     tracking_link: _attr(el, 'h2 a', 'href'),
                     link: _attr(el, 'h2 a', 'href'),
+                    links: [],
                 };
 
                 results.top_ads.push(ad_obj);
@@ -89,6 +90,7 @@ class CustomBingScraper extends Scraper {
                     visible_link: _text(el, '.b_adurl cite'),
                     tracking_link: _attr(el, 'h2 a', 'href'),
                     link: _attr(el, 'h2 a', 'href'),
+                    links: [],
                 };
 
                 results.bottom_ads.push(ad_obj);

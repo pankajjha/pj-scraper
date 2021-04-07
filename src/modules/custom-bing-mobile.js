@@ -47,6 +47,7 @@ class CustomBingMobileScraper extends Scraper {
                     visible_link: _text(el, '.b_adurl cite'),
                     tracking_link: _attr(el, 'h2 a', 'href'),
                     link: _attr(el, 'h2 a', 'href'),
+                    links: [],
                   };
                   container.push(ad_obj);
                 });
