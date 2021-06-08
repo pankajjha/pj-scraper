@@ -31,13 +31,13 @@ let browser_config = {
     // scrape config can change on each scrape() call
     let scrape_config = {
         // which search engine to scrape
-        search_engine: 'google_desktop',
+        search_engine: 'yahoo_mobile',
         //search_engine: 'google',
         // an array of keywords to scrape
         keywords: ['cloud service'],
         // the number of pages to scrape for each keyword
         num_pages: 1,
-        scrape_from_string: fs.readFileSync('google-test.html', 'utf8'),
+        scrape_from_string: fs.readFileSync('html/yahoo-mobile.html', 'utf8'),
     };
     const browser = await puppeteer.launch(launchOptions);
     let results = await pj_scraper.scrape(browser, browser_config, scrape_config);
