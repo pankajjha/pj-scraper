@@ -9,7 +9,7 @@ const google_mobile = require('./modules/google-mobile.js');
 const bing_desktop = require('./modules/bing-desktop.js');
 const bing_mobile = require('./modules/bing-mobile.js');
 const yahoo_desktop = require('./modules/yahoo.js');
-const yahoo_mobile = require('./modules/yahoo.js');
+const yahoo_mobile = require('./modules/yahoo-mobile.js');
 //const { Cluster } = require('./puppeteer-cluster/dist/index.js');
 const common = require('./modules/common.js');
 var log = common.log;
@@ -41,7 +41,7 @@ function getScraper(search_engine, args) {
             bing_desktop: bing_desktop.BingDesktopScraper,
             bing_mobile: bing_mobile.BingMobileScraper,
             yahoo_desktop: yahoo_desktop.YahooScraper,
-            yahoo_mobile: yahoo_mobile.YahooScraper,
+            yahoo_mobile: yahoo_mobile.YahooMobileScraper,
         }[search_engine](args);
     } else if (typeof search_engine === 'function') {
         return new search_engine(args);
