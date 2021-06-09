@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="79117704-c796-42ba-ba31-084a6f30a982" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/pj-scrapper.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/bing-desktop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/bing-mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/common.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/google-desktop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/google-mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/metadata.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/pj_scraper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/yahoo-mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/yahoo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/node_scraper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/modules/bing_desktop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/modules/bing_mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/modules/google_desktop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/modules/google_mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/modules/yahoo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task id="LOCAL-00001" summary="updated package.json">
+      <created>1623220019359</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623220019359</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated package.json">
+      <created>1623220281726</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1623220281726</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Rebasing Master">
+      <created>1623220400230</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1623220400230</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Rebasing Master">
+      <created>1623220607275</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1623220607275</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Merge branch 'feature/v2' into development&#10;&#10;# Conflicts:&#10;#&#9;.DS_Store" />
+    <MESSAGE value="updated package.json" />
+    <MESSAGE value="Rebasing Master" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rebasing Master" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="274" y="0" width="883" height="900" key="CommitChangelistDialog2" timestamp="1623220606975">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="274" y="0" width="883" height="900" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1623220606975" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1623220058939">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1623220058939" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1623220058937">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1623220058937" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1623220058936">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1623220058936" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1623220058938">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1623220058938" />
+    <state x="259" y="0" key="MergeDialog" timestamp="1623221399764">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="259" y="0" key="MergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1623221399764" />
+    <state x="484" y="85" width="701" height="368" key="MultipleFileMergeDialog" timestamp="1623221399802">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="484" y="85" width="701" height="368" key="MultipleFileMergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1623221399802" />
+  </component>
+</project>
