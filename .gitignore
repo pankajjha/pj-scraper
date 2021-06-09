@@ -80,3 +80,5 @@ typings/
 GoogleScraperPup.iml
 
 .http-mitm-proxy
+
+/html/*
