@@ -82,3 +82,5 @@ GoogleScraperPup.iml
 .http-mitm-proxy
 
 /html/*
+
+tmp
