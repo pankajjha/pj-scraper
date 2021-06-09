@@ -84,3 +84,5 @@ GoogleScraperPup.iml
 /html/*
 
 tmp
+
+.DS_Store
