@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="555d44e3-466d-4e5c-b13f-21f263ae1b7e" name="Default Changelist" comment="" />
+    <list default="true" id="79117704-c796-42ba-ba31-084a6f30a982" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,66 +16,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1thMZW8Pt8QWX7g4cgzGQdS7mIt" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="yarn" />
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="555d44e3-466d-4e5c-b13f-21f263ae1b7e" name="Default Changelist" comment="" />
-      <created>1623216923185</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1623216923185</updated>
-      <workItem from="1623216925287" duration="1530000" />
-    </task>
-    <task id="LOCAL-00001" summary="Updated Google Script for Snippets and other bug&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;index.js&#10;#&#9;package.json&#10;#&#9;run.js&#10;#&#9;yarn.lock">
-      <created>1623217972310</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1623217972310</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Merge branch 'feature/v2' of github.com-pankajjha:pankajjha/pj-scraper into development&#10;&#10;# Conflicts:&#10;#&#9;.DS_Store&#10;#&#9;.gitignore&#10;#&#9;index.js&#10;#&#9;package.json&#10;#&#9;run.js&#10;#&#9;yarn.lock" />
-    <MESSAGE value="Updated Google Script for Snippets and other bug&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;index.js&#10;#&#9;package.json&#10;#&#9;run.js&#10;#&#9;yarn.lock" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Google Script for Snippets and other bug&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;index.js&#10;#&#9;package.json&#10;#&#9;run.js&#10;#&#9;yarn.lock" />
+    <MESSAGE value="Merge branch 'feature/v2' into development&#10;&#10;# Conflicts:&#10;#&#9;.DS_Store" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'feature/v2' into development&#10;&#10;# Conflicts:&#10;#&#9;.DS_Store" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="170" y="0" key="CommitChangelistDialog2" timestamp="1623217971707">
+    <state x="274" y="0" key="CommitChangelistDialog2" timestamp="1623219196865">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="170" y="0" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1623217971707" />
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1623218388956">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1623218388956" />
-    <state x="33" y="25" key="MergeDialog" timestamp="1623218183771">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="33" y="25" key="MergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1623218183771" />
-    <state x="264" y="52" width="689" height="447" key="MultipleFileMergeDialog" timestamp="1623218285252">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="264" y="52" width="689" height="447" key="MultipleFileMergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1623218285252" />
+    <state x="274" y="0" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1623219196865" />
   </component>
 </project>
