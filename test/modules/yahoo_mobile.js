@@ -11,7 +11,7 @@ const Promise = require('bluebird');
 const Proxy = require('http-mitm-proxy');
 
 const debug = require('debug')('pj-scraper:test');
-const { BingMobileScraper } = require('../../src/modules/bing-mobile');
+const { YahooMobileScraper } = require('../../src/modules/yahoo-mobile');
 
 const httpPort = 3012;
 const httpsPort = httpPort + 1;
@@ -21,11 +21,11 @@ const fakeSearchEngine = express();
 fakeSearchEngine.get('/search', (req, res) => {
     debug('q=%s', req.query.q);
     const pageNumber = ((req.query.start/10) || 0)  + 1;
-    res.sendFile(path.join(__dirname, '../mocks/bing-mobile/' + req.query.q + '_page' + pageNumber + '.html'));
+    res.sendFile(path.join(__dirname, '../mocks/yahoo-mobile/' + req.query.q + '_page' + pageNumber + '.html'));
 });
-fakeSearchEngine.use(express.static('test/mocks/bing-mobile', {extensions: ['html']}));
+fakeSearchEngine.use(express.static('test/mocks/yahoo-mobile', {extensions: ['html']}));
 
-describe('Module Bing Mobile', function(){
+describe('Module Google Mobile', function(){
 
     let httpServer, httpsServer, proxy;
     before(async function(){
@@ -81,17 +81,17 @@ describe('Module Bing Mobile', function(){
     });
 
     it('one keyword one page', function(){
-        const bingMobileScraper = new BingMobileScraper({
+        const yahooMobileScraper = new YahooMobileScraper({
             config: {
-                search_engine_name: 'bing_mobile',
+                search_engine_name: 'yahoo_mobie',
                 throw_on_detection: true,
                 keywords: ['shein'],
                 logger: testLogger,
                 scrape_from_file: '',
             }
         });
-        bingMobileScraper.STANDARD_TIMEOUT = 500;
-        return bingMobileScraper.run({page}).then(({results, metadata, num_requests}) => {
+        yahooMobileScraper.STANDARD_TIMEOUT = 500;
+        return yahooMobileScraper.run({page}).then(({results, metadata, num_requests}) => {
             assert.strictEqual(num_requests, 1, 'Must do one request');
             assert.strictEqual(results['shein']['1'].results.length, 10, 'Must have 10 organic results parsed');
         });
