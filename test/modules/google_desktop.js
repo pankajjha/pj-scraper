@@ -75,9 +75,13 @@ describe('Module Google Desktop', function(){
         googleDesktopScraper.STANDARD_TIMEOUT = 500;
 
         return googleDesktopScraper.run({page}).then(({results, metadata, num_requests}) => {
-            //console.dir(results, {depth: null, colors: false});
-            assert(results['cloud service']['1']['top_ads'].length > 1);
-            //assert(results['cloud service']['1']['bottom_ads'].length > 1);
+              var data =results['cloud service']['1']['top_ads'];
+              assert(data[0].visible_link != '');  
+              assert(data[0].tracking_link != '');
+              assert(data[0].link != '');
+              assert(data[0].title != '');
+              assert(data[0].snippet != '');
+              assert(results['cloud service']['1']['top_ads'].length > 1);
         });
     });
 

@@ -11,7 +11,7 @@ const path = require('path');
 const debug = require('debug')('pj-scraper:test');
 const { YahooMobileScraper } = require('../../src/modules/yahoo-mobile');
 
-describe('Module Google Mobile', function(){
+describe('Module Yahoo Mobile', function(){
 
     before(async function(){
         // Here mount our fake engine in both http and https listen server
@@ -75,9 +75,22 @@ describe('Module Google Mobile', function(){
         yahooMobileScraper.STANDARD_TIMEOUT = 500;
 
         return yahooMobileScraper.run({page}).then(({results, metadata, num_requests}) => {
-            //console.dir(results, {depth: null, colors: false});
-           assert(results['cloud service']['1']['top_ads'].length >= 1);
-           assert(results['cloud service']['1']['bottom_ads'].length >= 1);
+            var data =results['cloud service']['1']['top_ads'];
+            assert(data[0].visible_link != '');  
+            assert(data[0].tracking_link != '');
+            assert(data[0].link != '');
+            assert(data[0].title != '');
+            assert(data[0].snippet != '');
+
+            var dataBottomAds =results['cloud service']['1']['bottom_ads'];
+            assert(dataBottomAds[0].visible_link != '');  
+            assert(dataBottomAds[0].tracking_link != '');
+            assert(dataBottomAds[0].link != '');
+            assert(dataBottomAds[0].title != '');
+            assert(dataBottomAds[0].snippet != '');
+
+            assert(results['cloud service']['1']['top_ads'].length >= 1);
+            assert(results['cloud service']['1']['bottom_ads'].length >= 1);
         });
     });
 
