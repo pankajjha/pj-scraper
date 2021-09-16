@@ -76,12 +76,12 @@ describe('Module Bing Mobile', function(){
 
         return bingMobileScraper.run({page}).then(({results, metadata, num_requests}) => {
             var data =results['cloud service']['1']['top_ads'];
-            assert(data[0].visible_link != '');  
-            assert(data[0].tracking_link != '');
-            assert(data[0].link != '');
-            assert(data[0].title != '');
-            assert(data[0].snippet != '');
-            assert(results['cloud service']['1']['top_ads'].length >= 1);
+            assert(data[0].visible_link != '',"At least one visible_link is required");  
+            assert(data[0].tracking_link != '',"At least one tracking_link is required");
+            assert(data[0].link != '',"At least one link is required");
+            assert(data[0].title != '',"At least one title is required");
+            assert(data[0].snippet != '',"At least one snippet is required");
+            assert(results['cloud service']['1']['top_ads'].length >= 1,"top_ads should be grater and equal to one");
         });
     });
 

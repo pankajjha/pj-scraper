@@ -77,21 +77,21 @@ describe('Module Yahoo Desktop', function(){
         return yahooScraper.run({page}).then(({results, metadata, num_requests}) => {
             //console.dir(results, {depth: null, colors: false});
            var data =results['cloud service']['1']['top_ads'];
-            assert(data[0].visible_link != '');  
-            assert(data[0].tracking_link != '');
-            assert(data[0].link != '');
-            assert(data[0].title != '');
-            assert(data[0].snippet != '');
-            assert(data[0].links != '');
+            assert(data[0].visible_link != '',"At least one visible_link is required");  
+            assert(data[0].tracking_link != '',"At least one tracking_link is required");
+            assert(data[0].link != '',"At least one link is required");
+            assert(data[0].title != '',"At least one title is required");
+            assert(data[0].snippet != '',"At least one snippet is required");
+            assert(data[0].links != '',"At least one links is required");
 
             var dataBottomAds =results['cloud service']['1']['bottom_ads'];
-            assert(dataBottomAds[0].visible_link != '');  
-            assert(dataBottomAds[0].tracking_link != '');
-            assert(dataBottomAds[0].link != '');
-            assert(dataBottomAds[0].title != '');
-            assert(dataBottomAds[0].snippet != '');
-            assert(results['cloud service']['1']['top_ads'].length >= 1);
-            assert(results['cloud service']['1']['bottom_ads'].length >= 1);
+            assert(dataBottomAds[0].visible_link != '',"At least one visible_link is required");  
+            assert(dataBottomAds[0].tracking_link != '',"At least one tracking_link is required");
+            assert(dataBottomAds[0].link != '',"At least one link is required");
+            assert(dataBottomAds[0].title != '',"At least one title is required");
+            assert(dataBottomAds[0].snippet != '',"At least one snippet is required");
+            assert(results['cloud service']['1']['top_ads'].length >= 1,"top_ads should be grater and equal to one");
+            assert(results['cloud service']['1']['bottom_ads'].length >= 1,"top_ads should be grater and equal to one");
         });
     });
 
