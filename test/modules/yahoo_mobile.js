@@ -9,9 +9,9 @@ const assert = require('assert');
 const path = require('path');
 
 const debug = require('debug')('pj-scraper:test');
-const { GoogleDesktopScraper } = require('../../src/modules/google-desktop');
+const { YahooMobileScraper } = require('../../src/modules/yahoo-mobile');
 
-describe('Module Google Desktop', function(){
+describe('Module Yahoo Mobile', function(){
 
     before(async function(){
         // Here mount our fake engine in both http and https listen server
@@ -61,27 +61,36 @@ describe('Module Google Desktop', function(){
     });
 
     it('one keyword one page', function(){
-        const googleDesktopScraper = new GoogleDesktopScraper({
+        const yahooMobileScraper = new YahooMobileScraper({
             config: {
-                search_engine_name: 'google_desktop',
+                search_engine_name: 'google_mobile',
                 //throw_on_detection: true,
                 keywords: ['cloud service'],
                 logger: testLogger,
                 scrape_from_file: '',
-                scrape_from_string: fs.readFileSync('../mocks/google_desktop.html', 'utf8'),
+                scrape_from_string: fs.readFileSync('../mocks/yahoo_mobile.html', 'utf8'),
             }
         });
 
-        googleDesktopScraper.STANDARD_TIMEOUT = 500;
+        yahooMobileScraper.STANDARD_TIMEOUT = 500;
 
-        return googleDesktopScraper.run({page}).then(({results, metadata, num_requests}) => {
-              var data =results['cloud service']['1']['top_ads'];
-              assert(data[0].visible_link != '',"At least one visible_link is required");  
-              assert(data[0].tracking_link != '',"At least one tracking_link is required");
-              assert(data[0].link != '',"At least one link is required");
-              assert(data[0].title != '',"At least one title is required");
-              assert(data[0].snippet != '',"At least one snippet is required");
-              assert(results['cloud service']['1']['top_ads'].length > 1,"top_ads should be grater and equal to one");
+        return yahooMobileScraper.run({page}).then(({results, metadata, num_requests}) => {
+            var data =results['cloud service']['1']['top_ads'];
+            assert(data[0].visible_link != '',"At least one visible_link is required");  
+            assert(data[0].tracking_link != '',"At least one tracking_link is required");
+            assert(data[0].link != '',"At least one link is required");
+            assert(data[0].title != '',"At least one title is required");
+            assert(data[0].snippet != '',"At least one snippet is required");
+
+            var dataBottomAds =results['cloud service']['1']['bottom_ads'];
+            assert(dataBottomAds[0].visible_link != '',"At least one visible_link is required");  
+            assert(dataBottomAds[0].tracking_link != '',"At least one tracking_link is required");
+            assert(dataBottomAds[0].link != '',"At least one link is required");
+            assert(dataBottomAds[0].title != '',"At least one title is required");
+            assert(dataBottomAds[0].snippet != '',"At least one snippet is required");
+
+            assert(results['cloud service']['1']['top_ads'].length >= 1,"top_ads should be grater and equal to one");
+            assert(results['cloud service']['1']['bottom_ads'].length >= 1,"bottom_ads should be grater and equal to one");
         });
     });
 

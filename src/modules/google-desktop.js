@@ -95,7 +95,7 @@ class GoogleDesktopScraper extends Scraper{
                         visible_link: _text(el, '.Zu0yb.LWAWHf.qzEoUe'),
                         tracking_link: _attr(el, 'a:first-child', 'data-rw'),
                         link: _attr(el, 'a:first-child', 'href'),
-                        title: _text(el, 'a:first-child div'),
+                        title: _text(el, 'a:first-child div span'),
                         snippet: _snippets(el, '.MUxGbd.yDYNvb.lyLwlc'),
                         links: [],
                     };

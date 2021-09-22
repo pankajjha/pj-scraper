@@ -86,3 +86,5 @@ GoogleScraperPup.iml
 tmp
 
 .DS_Store
+# ignore test mocks html
+/test/mocks/*.html
