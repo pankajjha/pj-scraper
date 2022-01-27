@@ -92,7 +92,7 @@ class GoogleDesktopScraper extends Scraper{
             let parseAds = (container, selector) => {
                 document.querySelectorAll(selector).forEach((el) => {
                     let ad_obj = {
-                        visible_link: _text(el, '.Zu0yb.LWAWHf.qzEoUe'),
+                        visible_link: _text(el, '.x2VHCd.OSrXXb.nMdasd.qzEoUe'),
                         tracking_link: _attr(el, 'a:first-child', 'data-rw'),
                         link: _attr(el, 'a:first-child', 'href'),
                         title: _text(el, 'a:first-child div'),
