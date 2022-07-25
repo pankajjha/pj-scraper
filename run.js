@@ -4,7 +4,7 @@ const fs = require('fs');
 const util = require('util');
 const launchOptions = {
     //headless: (process.env.CRAWL_HEADLESS || false),
-    headless: false,
+    headless: true,
     ignoreHTTPSErrors: true,
     userDataDir: './tmp',
     args: [

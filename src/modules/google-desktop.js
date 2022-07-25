@@ -69,14 +69,14 @@ class GoogleDesktopScraper extends Scraper{
                 results.num_results = num_results_el.innerText;
             }
 
-            let organic_results = document.querySelectorAll('#center_col .g');
+            let organic_results = document.querySelectorAll('#rso .g');
             organic_results.forEach((el) => {
 
                 let serp_obj = {
-                    link: _attr(el, '.rc a', 'href'),
-                    title: _text(el, '.rc a h3'),
-                    snippet: _text(el, '.rc > div:nth-child(2) span span'),
-                    visible_link: _text(el, '.rc cite'),
+                    link: _attr(el, 'a:nth-child(1)', 'href'),
+                    title: _text(el, 'a:nth-child(1) h3'),
+                    snippet: _text(el, '.VwiC3b span'),
+                    visible_link: _text(el, 'cite'),
                     date: _text(el, '.rc > div:nth-child(2) span.f'),
                 };
 
