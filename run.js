@@ -42,7 +42,7 @@ let browser_config = {
         keywords: ['cloud service'],
         // the number of pages to scrape for each keyword
         num_pages: 1,
-        scrape_from_string: fs.readFileSync('html/google.html', 'utf8'),
+        scrape_from_string: fs.readFileSync('html/1.html', 'utf8'),
         //scrape_from_string: fs.readFileSync('html/alibaba_bing_desktop.html', 'utf8'),
         //scrape_from_string: fs.readFileSync('html/alibaba_yahoo_desktop.html', 'utf8'),
     };

@@ -51,6 +51,25 @@ class GoogleDesktopScraper extends Scraper{
                 return text.trim();
             }
 
+            let _content = (el, s) => {
+                let n = el.querySelector(s);
+              
+                if (n) {
+                  return n.textContent;
+                } else {
+                  return '';
+                }
+            };
+              
+            let trimmed_link = (s) => {
+                let mod_prefix = 'url?q=';
+                let hasNewLink = s.lastIndexOf(mod_prefix);
+                if(hasNewLink === -1)
+                  return s;
+                let after = s.substring(hasNewLink + mod_prefix.length);
+                return after;
+            }
+
             let results = {
                 num_results: '',
                 no_results: false,
@@ -69,14 +88,14 @@ class GoogleDesktopScraper extends Scraper{
                 results.num_results = num_results_el.innerText;
             }
 
-            let organic_results = document.querySelectorAll('#rso .g');
+            let organic_results = document.querySelectorAll('.fP1Qef');
             organic_results.forEach((el) => {
 
                 let serp_obj = {
-                    link: _attr(el, 'a:nth-child(1)', 'href'),
-                    title: _text(el, 'a:nth-child(1) h3'),
-                    snippet: _text(el, '.VwiC3b span'),
-                    visible_link: _text(el, 'cite'),
+                    link: trimmed_link(_attr(el, 'div:nth-child(1) a:nth-child(1)', 'href')),
+                    title: _text(el, 'div:nth-child(1) a:nth-child(1) h3 div'),
+                    snippet: _content(el, 'div:nth-child(2) .AP7Wnd'),
+                    visible_link: _text(el, 'div:nth-child(1) a:nth-child(1) .UPmit'),
                     date: _text(el, '.rc > div:nth-child(2) span.f'),
                 };
 
